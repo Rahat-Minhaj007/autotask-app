@@ -32,25 +32,25 @@ const Login = () => {
                     {/*    <View className="absolute inset-0 bg-black/20"/>*/}
                     {/*</ImageBackground>*/}
                     <View className=" justify-center items-center">
-                        <Image source={images.loginImage} className="h-96 w-96" resizeMode="contain" />
+                        <Image source={images.loginImage} className="h-96 w-96" resizeMode="contain"/>
                     </View>
                     <Text className="text-dark-200 font-bold text-2xl text-center">Login</Text>
                     <ScrollView className="flex-1 px-10 pt-5">
                         <TextInput
-                            className="bg-slate-100 rounded-lg p-5 mb-4"
+                            className="bg-white rounded-lg p-4 mb-4"
                             placeholder="Username"
                             placeholderTextColor="#888"
                             keyboardType="email-address"
                         />
                         <TextInput
-                            className="bg-slate-100 rounded-lg p-5 mb-4"
+                            className="bg-white rounded-lg p-4 mb-4"
                             placeholder="Password"
                             placeholderTextColor="#888"
                             secureTextEntry
                         />
                         <TouchableOpacity
-                            className="bg-dark-200 py-4 rounded-lg w-full flex-row items-center justify-center"
-                            onPress={() => router.push("/")}
+                            className="bg-dark-200 p-5 mx-5 rounded-lg w-full flex-row items-center justify-center"
+                            onPress={() => router.push("/(auth)/login")}
                         >
                             <Text className="text-white text-xl font-semibold">
                                 Login
