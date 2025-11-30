@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     Image,
     ImageBackground,
@@ -17,6 +17,7 @@ import {LinearGradient} from "expo-linear-gradient";
 import {Feather} from "@expo/vector-icons";
 
 const Login = () => {
+    const [showPassword, setShowPassword] = useState(false);
 
     return (
         <View className="flex-1 relative">
@@ -37,11 +38,11 @@ const Login = () => {
                         <ScrollView keyboardShouldPersistTaps="handled" className="flex-1 px-10">
                             <View
                                 className="flex flex-row items-center justify-center bg-slate-50 rounded-lg p-4 mb-5 border border-slate-200">
-                                <Feather name="user" size={16} color="gray"/>
+                                <Feather name="mail" size={16} color="gray"/>
 
                                 <TextInput
                                     className="flex-1 ml-3 p-1.5 border-l border-slate-300"
-                                    placeholder="Username"
+                                    placeholder="Email"
                                     placeholderTextColor="#888"
                                     keyboardType="email-address"
                                 />
@@ -51,13 +52,19 @@ const Login = () => {
                                 <Feather name="lock" size={16} color="gray"/>
 
                                 <TextInput
-                                    className="flex-1 ml-3 p-1.5 border-l border-slate-300"
+                                    className="flex-1 ml-3"
                                     placeholder="Password"
                                     placeholderTextColor="#888"
-                                    secureTextEntry
+                                    secureTextEntry={!showPassword}   // key part
                                 />
 
-                                <Feather name="eye-off" size={16} color="gray"/>
+                                <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+                                    <Feather
+                                        name={showPassword ? "eye" : "eye-off"}
+                                        size={18}
+                                        color="gray"
+                                    />
+                                </TouchableOpacity>
                             </View>
 
                             <View className="justify-end items-end">

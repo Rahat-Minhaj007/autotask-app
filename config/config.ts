@@ -1,0 +1,1 @@
+export const baseUrl = 'https://snap.senda.fit /api/v1';
