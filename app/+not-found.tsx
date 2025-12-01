@@ -17,7 +17,7 @@ const NotFound = () => {
 
             <Link href="/" asChild>
                 <TouchableOpacity style={{marginTop: 20}}>
-                    <Text style={{color: "blue"}}>Go Home</Text>
+                    <Text style={{color: "#0f0d23"}}>Go Home</Text>
                 </TouchableOpacity>
             </Link>
         </View>

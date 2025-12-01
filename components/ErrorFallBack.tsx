@@ -29,7 +29,7 @@ const ErrorFallback = ({error, resetError}: ErrorFallbackProps) => {
             <TouchableOpacity
                 onPress={resetError}
                 style={{
-                    backgroundColor: "#2563EB",
+                    backgroundColor: "#0f0d23",
                     paddingHorizontal: 18,
                     paddingVertical: 10,
                     borderRadius: 8

@@ -14,8 +14,18 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import {router} from "expo-router";
 import {Feather} from "@expo/vector-icons";
 
-const Login = () => {
+const LoginScreen = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [loginData, setLoginData] = useState({
+        email: "",
+        password: "",
+    });
+
+    console.log(loginData);
+
+    const handleLoginChange = (name: string, value: string) => {
+        setLoginData((prev) => ({...prev, [name]: value}));
+    }
 
     return (
         <View className="flex-1 relative">
@@ -43,6 +53,8 @@ const Login = () => {
                                     placeholder="Email"
                                     placeholderTextColor="#888"
                                     keyboardType="email-address"
+                                    value={loginData.email}
+                                    onChangeText={(text) => handleLoginChange("email", text)}
                                 />
                             </View>
                             <View
@@ -54,6 +66,8 @@ const Login = () => {
                                     placeholder="Password"
                                     placeholderTextColor="#888"
                                     secureTextEntry={!showPassword}   // key part
+                                    value={loginData.password}
+                                    onChangeText={(text) => handleLoginChange("password", text)}
                                 />
 
                                 <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
@@ -88,4 +102,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default LoginScreen;
