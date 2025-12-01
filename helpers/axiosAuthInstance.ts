@@ -49,5 +49,7 @@ axiosAuthInstance.interceptors.response.use(
     }
 )
 
+export default axiosAuthInstance;
+
 
 
