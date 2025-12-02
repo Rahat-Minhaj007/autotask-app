@@ -1,11 +1,13 @@
 import {api} from "@/services/api/baseApi";
+import {ApiResponse, LoginResponse} from "@/interfaces/interfaces";
 
 export const authApi = api.injectEndpoints({
     endpoints: (builder) => ({
-        login: builder.mutation({
+        login: builder.mutation<ApiResponse<LoginResponse>, { email: string; password: string }>({
             query: ({email, password}) => ({
-                url: "/api/v1/auth/login",
+                url: "auth/login",
                 method: "POST",
+                headers: {Authorization: ""}, // override
                 data: {
                     email,
                     password

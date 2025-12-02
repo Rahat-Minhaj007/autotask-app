@@ -1,6 +1,6 @@
 import React from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
-import {images} from "@/modules/constants/images";
+import {images} from "@/constants/images";
 import {ImageBackground, Text, TouchableOpacity, View} from "react-native";
 import {StatusBar} from "expo-status-bar";
 import {Feather} from "@expo/vector-icons";

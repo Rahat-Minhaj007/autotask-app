@@ -3,6 +3,7 @@
     "name": "autotask-app",
     "slug": "autotask-app",
     "version": "1.0.0",
+    "jsEngine": "hermes",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "autotaskapp",

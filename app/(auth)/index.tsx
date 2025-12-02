@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     Image,
     Keyboard, KeyboardAvoidingView, Platform, ScrollView,
@@ -9,10 +9,15 @@ import {
     View
 } from "react-native";
 import {StatusBar} from "expo-status-bar";
-import {images} from "@/modules/constants/images";
+import {images} from "@/constants/images";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {router} from "expo-router";
 import {Feather} from "@expo/vector-icons";
+import {useLoginMutation} from "@/services/api/authApi";
+import {useDispatch} from "react-redux";
+import { handleLoginSuccessAction} from "@/features/auth/authHelpers";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {AppDispatch} from "@/redux/store";
 
 const LoginScreen = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -21,11 +26,36 @@ const LoginScreen = () => {
         password: "",
     });
 
-    console.log(loginData);
+    const [login, {isLoading}] = useLoginMutation();
+    const dispatch = useDispatch<AppDispatch>();
+
+    // console.log("login Data", loginData);
+    // console.log("Login Mutation", login);
 
     const handleLoginChange = (name: string, value: string) => {
         setLoginData((prev) => ({...prev, [name]: value}));
     }
+
+    const handleLoginSubmit = async () => {
+        const response = await login(loginData).unwrap();
+
+        console.log("response data=====>>",response?.data?.token);
+        if (response?.data?.token) {
+           await dispatch(handleLoginSuccessAction(response?.data));
+        }
+    }
+
+   const handlegetAsynData = async() =>{
+       const token =  await AsyncStorage.getItem("token");
+       const userInfo = await AsyncStorage.getItem("userInfo");
+
+       console.log("AsyncStorage Token:", token);
+       console.log("AsyncStorage User:", userInfo);
+   }
+
+   useEffect(() => {
+      handlegetAsynData();
+   },[])
 
     return (
         <View className="flex-1 relative">
@@ -86,7 +116,7 @@ const LoginScreen = () => {
                             </View>
                             <TouchableOpacity
                                 className="bg-dark-200 py-[1.2rem] rounded-lg w-full "
-                                onPress={() => router.push("/")}
+                                onPress={() => handleLoginSubmit()}
                             >
                                 <Text className="text-white text-xl font-semibold text-center">
                                     Login

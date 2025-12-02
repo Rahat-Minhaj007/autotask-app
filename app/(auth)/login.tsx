@@ -10,7 +10,7 @@ import {
     View
 } from "react-native";
 import {StatusBar} from "expo-status-bar";
-import {images} from "@/modules/constants/images";
+import {images} from "@/constants/images";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {router} from "expo-router";
 
