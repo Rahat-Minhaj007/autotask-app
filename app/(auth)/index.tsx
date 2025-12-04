@@ -15,7 +15,7 @@ import {router} from "expo-router";
 import {Feather} from "@expo/vector-icons";
 import {useLoginMutation} from "@/services/api/authApi";
 import {useDispatch} from "react-redux";
-import { handleLoginSuccessAction} from "@/features/auth/authHelpers";
+import {handleLoginSuccessAction} from "@/features/auth/authHelpers";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {AppDispatch} from "@/redux/store";
 
@@ -39,23 +39,24 @@ const LoginScreen = () => {
     const handleLoginSubmit = async () => {
         const response = await login(loginData).unwrap();
 
-        console.log("response data=====>>",response?.data?.token);
+        console.log("response data=====>>", response?.data?.token);
         if (response?.data?.token) {
-           await dispatch(handleLoginSuccessAction(response?.data));
+            await dispatch(handleLoginSuccessAction(response?.data));
+            router.replace("/(manager)");
         }
     }
 
-   const handlegetAsynData = async() =>{
-       const token =  await AsyncStorage.getItem("token");
-       const userInfo = await AsyncStorage.getItem("userInfo");
+    const handlegetAsynData = async () => {
+        const token = await AsyncStorage.getItem("token");
+        const userInfo = await AsyncStorage.getItem("userInfo");
 
-       console.log("AsyncStorage Token:", token);
-       console.log("AsyncStorage User:", userInfo);
-   }
+        console.log("AsyncStorage Token:", token);
+        console.log("AsyncStorage User:", userInfo);
+    }
 
-   useEffect(() => {
-      handlegetAsynData();
-   },[])
+    useEffect(() => {
+        handlegetAsynData();
+    }, [])
 
     return (
         <View className="flex-1 relative">

@@ -1,22 +1,21 @@
 import {Redirect} from "expo-router";
-import {useEffect, useState} from "react";
+import { useAuthData } from "@/hooks/useAuthData";
+import SplashScreen from "@/components/SplashScreen";
 
-const Index = () => {
-    const [role, setRole] = useState<string | null>(null);
+export default function Index() {
+    const { loading, userRole, isAuthenticated } = useAuthData();
 
-    // useEffect(() => {
-    //     // example: load role from secure storage or API
-    //     setTimeout(() => {
-    //         setRole("user");
-    //     }, 500);
-    // }, []);
+    if (loading) {
+        return <SplashScreen />; // or splash screen
+    }
 
-    // if (!role) return null;
-
-    // if (role === "admin") return <Redirect href="/(admin)" />;
-    // if (role === "manager") return <Redirect href="/(manager)" />;
-    // if (role === "user") return <Redirect href="/(user)" />;
-
-    return <Redirect href="/(auth)"/>;
+    return (
+        <>
+            {isAuthenticated && userRole === "manager" ? (
+                <Redirect href="/(manager)" />
+            ) : (
+                <Redirect href="/(auth)" />
+            )}
+        </>
+    );
 }
-export default Index;

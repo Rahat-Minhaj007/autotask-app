@@ -17,6 +17,14 @@ const RootLayout = () => {
                             name="(auth)"
                             options={{
                                 headerShown: false,
+                                animation: "none"
+                            }}/>
+                        <Stack.Screen
+                            name="(manager)"
+                            options={{
+                                headerShown: false,
+                                animation: "none"
+
                             }}/>
 
                         {/* 404 */}
