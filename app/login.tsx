@@ -42,7 +42,7 @@ const LoginScreen = () => {
         console.log("response data=====>>", response?.data?.token);
         if (response?.data?.token) {
             await dispatch(handleLoginSuccessAction(response?.data));
-            router.replace("/(manager)");
+            router.replace("/");
         }
     }
 

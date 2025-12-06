@@ -5,7 +5,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/redux/store";
 import {SplashScreen} from "expo-router";
 
-SplashScreen.preventAutoHideAsync();
 
 export const useAuthData = () => {
 
@@ -15,7 +14,7 @@ export const useAuthData = () => {
 
 
     const checkTokenAndReset = async () => {
-        await new Promise((res) => setTimeout(res, 6000));
+
         try {
             const storedToken = await AsyncStorage.getItem("token");
             if (!token && storedToken) {
@@ -29,11 +28,6 @@ export const useAuthData = () => {
         checkTokenAndReset();
     }, [token]);
 
-    useEffect(() => {
-        if (loading) {
-            SplashScreen.hideAsync();
-        }
-    }, [loading]);
 
     return {
         loading,

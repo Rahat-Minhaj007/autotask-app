@@ -1,70 +1,26 @@
 import React from "react";
-import {Text, View} from "react-native";
+import {StatusBar} from "expo-status-bar";
+import {Stack} from "expo-router";
 import {useAuthData} from "@/hooks/useAuthData";
-import {Redirect, Stack} from "expo-router";
+import {TouchableOpacity} from "react-native";
+import Feather from "@expo/vector-icons/Feather";
 
 const AuthGate = () => {
-    const {isAuthenticated, userRole} = useAuthData();
-    console.log("isAuthenticated 1", userRole)
-// 1. LOADING CHECK: If NOT ready, return null (wait for initial check to finish)
-//     if (!isAppReady) {
-//         console.log("isAppReady 1", isAppReady)
-//         return null; // Show nothing or a Splash Screen component
-//     }
-
-    if (!isAuthenticated) {
-        console.log("isAuthenticated 2", isAuthenticated)
-        return (
+    const {isAuthenticated, loading} = useAuthData();
+    if (loading) return null;
+    console.log("Is Authenticated!", isAuthenticated);
+    return (
+        <React.Fragment>
+            <StatusBar style="dark"/>
             <Stack>
-                <Stack.Screen name="(auth)" options={{headerShown: false}}/>
-                {/* Prevent navigation to any protected segment */}
-                <Stack.Screen name="+not-found"/>
+                <Stack.Protected guard={isAuthenticated}>
+                    <Stack.Screen name="(protected)" options={{headerShown: false}}/>
+                </Stack.Protected>
+                <Stack.Protected guard={!isAuthenticated}>
+                    <Stack.Screen name="login" options={{headerShown: false, animation: "none"}}/>
+                </Stack.Protected>
             </Stack>
-        );
-    }
-
-    // 3. AUTHENTICATED: Redirect to the correct role dashboard
-
-
-    if (userRole === 'manager') {
-        console.log("isManager 1", userRole)
-         return <Redirect href="/(manager)"/>
-    }
-    // Add other role paths here...
-
-    // Redirect the authenticated user to their correct dashboard
-    // return <Redirect href={dashboardPath}/>;
-    // return (
-    //     <Stack>
-    //         {/* The Login/Auth screen is still available, but users will be redirected away */}
-    //         {/*<Stack.Screen name="(auth)" options={{headerShown: false}}/>*/}
-    //
-    //         {/* --- Protected Role Segments --- */}
-    //
-    //         {/* User segment (accessible to all) */}
-    //         {/*{(userRole === 'user' || userRole === 'manager' || userRole === 'admin') && (*/}
-    //         {/*    <Stack.Screen name="(user)" options={{ headerShown: false }} />*/}
-    //         {/*)}*/}
-    //
-    //         {/* Manager segment (accessible to managers and admins) */}
-    //         {/*{(userRole === 'manager' || userRole === 'admin') && (*/}
-    //         {/*    <Stack.Screen name="(manager)" options={{ headerShown: false }} />*/}
-    //         {/*)}*/}
-    //
-    //         {/* Manager segment (accessible to managers and admins) */}
-    //         {(userRole === 'manager') && (
-    //             <Stack.Screen name="(manager)" options={{headerShown: false}}/>
-    //         )}
-    //
-    //         {/*/!* Admin segment (accessible to admins only) *!/*/}
-    //         {/*{userRole === 'admin' && (*/}
-    //         {/*    <Stack.Screen name="(admin)" options={{ headerShown: false }} />*/}
-    //         {/*)}*/}
-    //
-    //         {/* 4. Not Found (Catch-all) */}
-    //         <Stack.Screen name="+not-found"/>
-    //     </Stack>
-    // );
-};
-
+        </React.Fragment>
+    );
+}
 export default AuthGate;
