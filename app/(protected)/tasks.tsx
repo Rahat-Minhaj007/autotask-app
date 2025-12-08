@@ -14,7 +14,7 @@ const TasksScreen = () => {
                     onDayPress={(day) => {
                         setSelected(day.dateString);
                     }}
-                    hideExtraDays={true}
+                    hideExtraDays={false}
                     style={{
                         borderRadius: 10,
                         padding: 15,
@@ -32,16 +32,18 @@ const TasksScreen = () => {
                         backgroundColor: "#ffffff",
 
                         // Day text colors
-                        dayTextColor: "#000000",             // normal day text
+                        dayTextColor: "#4b4a5a",             // normal day text
                         textDisabledColor: "#9e9e9e",        // disabled dates
-                        todayTextColor: "#000000",           // today text black
+                        todayTextColor: "#0f0d23",           // today text black
 
                         // Header (month + arrows)
-                        monthTextColor: "#000000",           // month title
-                        arrowColor: "#000000",               // left/right icon
+                        monthTextColor: "#0f0d23",           // month title
+                        arrowColor: "#0f0d23",
+                        textMonthFontWeight: "500",      // <— make month bold
+                        textMonthFontSize: 20,            // optional// left/right icon
 
                         // Weekday labels Mon Tue Wed
-                        textSectionTitleColor: "#000000",    // week names
+                        textSectionTitleColor: "#0f0d23",    // week names
 
                         // Selected
                         selectedDayBackgroundColor: "#0f0d23",

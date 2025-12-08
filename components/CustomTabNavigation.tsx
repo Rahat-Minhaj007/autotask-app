@@ -1,9 +1,8 @@
-import { View, TouchableOpacity, StyleSheet } from "react-native";
-import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import {View, TouchableOpacity, StyleSheet} from "react-native";
+import {BottomTabBarProps} from "@react-navigation/bottom-tabs";
 import Feather from "@expo/vector-icons/Feather";
+import EvilIcons from "@expo/vector-icons/EvilIcons";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import Animated, {
     FadeIn,
     FadeOut,
@@ -17,16 +16,16 @@ const PRIMARY_COLOR = "#0f0d23";
 const SECONDARY_COLOR = "#fff";
 
 const CustomTabNavigation: React.FC<BottomTabBarProps> = ({
-                                                       state,
-                                                       descriptors,
-                                                       navigation,
-                                                   }) => {
+                                                              state,
+                                                              descriptors,
+                                                              navigation,
+                                                          }) => {
     return (
         <View style={styles.container}>
             {state.routes.map((route, index) => {
                 if (["_sitemap", "+not-found"].includes(route.name)) return null;
 
-                const { options } = descriptors[route.key];
+                const {options} = descriptors[route.key];
                 const label =
                     options.tabBarLabel !== undefined
                         ? options.tabBarLabel
@@ -55,7 +54,7 @@ const CustomTabNavigation: React.FC<BottomTabBarProps> = ({
                         onPress={onPress}
                         style={[
                             styles.tabItem,
-                            { backgroundColor: isFocused ? SECONDARY_COLOR : "transparent" },
+                            {backgroundColor: isFocused ? SECONDARY_COLOR : "transparent"},
                         ]}
                     >
                         {getIconByRouteName(
@@ -80,15 +79,16 @@ const CustomTabNavigation: React.FC<BottomTabBarProps> = ({
     function getIconByRouteName(routeName: string, color: string) {
         switch (routeName) {
             case "index":
-                return <Feather name="home" size={18} color={color} />;
+                return <Feather name="home" size={18} color={color}/>;
 
             case "tasks":
-                return <Feather name="calendar" size={18} color={color} />;
+                return <EvilIcons name="calendar" size={26} color={color}/>;
+                ;
 
             case "profile":
-                return <FontAwesome6 name="circle-user" size={18} color={color} />;
+                return <FontAwesome6 name="circle-user" size={18} color={color}/>;
             default:
-                return <Feather name="home" size={18} color={color} />;
+                return <Feather name="home" size={18} color={color}/>;
         }
     }
 };
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         paddingVertical: 15,
         shadowColor: "#000",
-        shadowOffset: { width: 0, height: 5 },
+        shadowOffset: {width: 0, height: 5},
         shadowOpacity: 0.3,
         shadowRadius: 5,
     },
