@@ -8,7 +8,7 @@ export const authApi = api.injectEndpoints({
                 url: "auth/login",
                 method: "POST",
                 headers: {Authorization: ""}, // override
-                data: {
+                params: {
                     email,
                     password
                 }

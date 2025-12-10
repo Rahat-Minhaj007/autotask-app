@@ -1,11 +1,22 @@
 import {Text, View} from "react-native";
 import {Calendar} from "react-native-calendars";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useTasksQuery} from "@/services/api/tasksApi";
 
 const TasksScreen = () => {
     const today = new Date().toISOString().split("T")[0];
 
     const [selected, setSelected] = useState(today);
+
+    const {data, isLoading, error} = useTasksQuery({
+        from_date: "",
+        to_date: "",
+        per_page: 15,
+    });
+
+    useEffect(() => {
+        console.log("data==>",data);
+    }, [data]);
     console.log("selected date", selected);
     return (
         <View className="flex-1 p-6">

@@ -7,7 +7,9 @@ export const store = configureStore({
         auth: authReducer,
         [api.reducerPath]: api.reducer,
     },
-    middleware: (gDM) => gDM().concat(api.middleware),
+    middleware: (gDM) => gDM({
+        serializableCheck: false,
+    }).concat(api.middleware),
     devTools: process.env.NODE_ENV === "development",
 });
 

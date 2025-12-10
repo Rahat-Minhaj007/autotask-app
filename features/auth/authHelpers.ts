@@ -1,4 +1,3 @@
-import {jwtDecode} from "jwt-decode";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {logoutRemoveData, setTokenUserInfo} from "@/redux/slices/authSlice";
 import {AppDispatch} from "@/redux/store";

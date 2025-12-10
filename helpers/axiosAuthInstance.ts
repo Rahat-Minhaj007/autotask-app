@@ -17,7 +17,8 @@ axiosAuthInstance.interceptors.request.use(
             const token = await AsyncStorage.getItem("token");
 
             if (token) {
-                config.headers.Authorization = `Bearer ${token}`;
+                const jsonParsedToken = JSON.parse(token);
+                config.headers.Authorization = `Bearer ${jsonParsedToken}`;
             }
         } catch (e) {
             console.log("Error reading token:", e);
@@ -39,9 +40,9 @@ axiosAuthInstance.interceptors.response.use(
 
     async (error) => {
         const originalRequest = error.config;
-        if (error.response && error.response.status === 401) {
+        if (error?.response && error?.response?.status === 401) {
             originalRequest._retry = true;
-            await AsyncStorage.removeItem("token");
+            // await AsyncStorage.removeItem("token");
             console.log(error);
         }
 
