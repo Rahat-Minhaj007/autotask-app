@@ -49,7 +49,12 @@ const CustomTabNavigation: React.FC<BottomTabBarProps> = ({
 
                 return (
                     <AnimatedTouchableOpacity
-                        layout={LinearTransition.springify().mass(0.5)}
+                        layout={LinearTransition.springify()
+                            .mass(1.2)
+                            .damping(18)
+                            .stiffness(60)
+                            .duration(350)
+                        }
                         key={route.key}
                         onPress={onPress}
                         style={[
@@ -63,8 +68,8 @@ const CustomTabNavigation: React.FC<BottomTabBarProps> = ({
                         )}
                         {isFocused && (
                             <Animated.Text
-                                entering={FadeIn.duration(200)}
-                                exiting={FadeOut.duration(200)}
+                                entering={FadeIn.duration(350)}
+                                exiting={FadeOut.duration(350)}
                                 style={styles.text}
                             >
                                 {label as string}

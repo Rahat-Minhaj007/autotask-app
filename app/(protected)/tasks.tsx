@@ -1,12 +1,19 @@
-import {Text, View} from "react-native";
+import {FlatList, ScrollView, Text, View} from "react-native";
 import {Calendar} from "react-native-calendars";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useTasksQuery} from "@/services/api/tasksApi";
+import {useFocusEffect} from "expo-router";
 
 const TasksScreen = () => {
     const today = new Date().toISOString().split("T")[0];
+    const dateFormat = {dateString: today, day: 18, month: 12, timestamp: 1766016000000, year: 2025}
 
-    const [selected, setSelected] = useState(today);
+    const [selected, setSelected] = useState(dateFormat);
+    const flatRef = useRef<FlatList<any>>(null);
+
+    useFocusEffect(() => {
+        flatRef.current?.scrollToOffset({ offset: 0, animated: false });
+    });
 
     const {data, isLoading, error} = useTasksQuery({
         from_date: "",
@@ -15,15 +22,15 @@ const TasksScreen = () => {
     });
 
     useEffect(() => {
-        console.log("data==>",data);
+        console.log("data==>", data?.data?.tasks);
     }, [data]);
     console.log("selected date", selected);
     return (
-        <View className="flex-1 p-6">
-            <View className="drop-shadow-2xl">
+        <View className="flex-1 ">
+            <View className="flex-1 drop-shadow-2xl">   {/* FIX HERE */}
                 <Calendar
                     onDayPress={(day) => {
-                        setSelected(day.dateString);
+                        setSelected(day);
                     }}
                     hideExtraDays={false}
                     style={{
@@ -32,7 +39,7 @@ const TasksScreen = () => {
                         height: 380,
                     }}
                     markedDates={{
-                        [selected]: {
+                        [selected?.dateString]: {
                             selected: true,
                             selectedColor: "#0f0d23",   // selected date circle background
                             selectedTextColor: "#ffffff" // selected date text color
@@ -60,6 +67,20 @@ const TasksScreen = () => {
                         selectedDayBackgroundColor: "#0f0d23",
                         selectedDayTextColor: "#ffffff"
                     }}
+                />
+
+                <FlatList
+                    data={data ? data.data.tasks : []}
+                    ref={flatRef}
+                    renderItem={({item}) => (
+                        <View className="flex-row items-start bg-white p-5 mt-5 drop-shadow-2xl rounded mx-6">
+
+                        </View>
+                    )}
+                    keyExtractor={(item) => item?.id.toString()}
+                    className="mt-2"
+                    contentContainerStyle={{paddingBottom: 100}}
+                    showsVerticalScrollIndicator={false}
                 />
             </View>
         </View>
