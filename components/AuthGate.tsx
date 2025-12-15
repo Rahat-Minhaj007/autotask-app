@@ -15,6 +15,7 @@ const AuthGate = () => {
             <Stack>
                 <Stack.Protected guard={isAuthenticated}>
                     <Stack.Screen name="(protected)" options={{headerShown: false, animation: "none"}}/>
+
                 </Stack.Protected>
                 <Stack.Protected guard={!isAuthenticated}>
                     <Stack.Screen name="login" options={{headerShown: false, animation: "none"}}/>

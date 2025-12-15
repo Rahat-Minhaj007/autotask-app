@@ -48,7 +48,7 @@ export interface Task {
     description: string;
     work_date: string;
     work_time: string;
-    status: string;
+    status: "running" | "completed" | "pending" | "cancelled";
     priority: string;
     due_date: string;
     completed_at: string | null;
