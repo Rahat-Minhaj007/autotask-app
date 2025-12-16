@@ -31,10 +31,24 @@ const ProtectedLayout = () => {
             />
             <Tabs.Screen name="tasks"
                          options={{
-                             title: "Task",
-                             headerShown: false,
+                             title: "Tasks",
+                             headerShown: true,
+                             headerTitleAlign: "left",
+                             headerStyle: {
+                                 height: 110,
+                             },
+                             headerShadowVisible: false,  // remove default shadow
+                             headerBackground: () => (
+                                 <View
+                                     style={{
+                                         flex: 1,
+                                         backgroundColor: "#f2f2f2",
+                                         borderBottomWidth: 1,
+                                         borderBottomColor: "#e5e5e5",  // your custom shadow color
+                                     }}
+                                 />
+                             ),
                          }}
-
             />
             <Tabs.Screen name="profile"
                          options={{

@@ -1,8 +1,8 @@
 import React from "react";
 import {StatusBar} from "expo-status-bar";
-import {Stack} from "expo-router";
+import {Stack, useRouter} from "expo-router";
 import {useAuthData} from "@/hooks/useAuthData";
-import {TouchableOpacity} from "react-native";
+import {Pressable, Text, TouchableOpacity, View} from "react-native";
 import Feather from "@expo/vector-icons/Feather";
 
 const AuthGate = () => {
@@ -15,6 +15,13 @@ const AuthGate = () => {
             <Stack>
                 <Stack.Protected guard={isAuthenticated}>
                     <Stack.Screen name="(protected)" options={{headerShown: false, animation: "none"}}/>
+                    <Stack.Screen
+                        name="task/[taskDetailsId]"
+                        options={{
+                            headerShown: false,
+                        }}
+
+                    />
 
                 </Stack.Protected>
                 <Stack.Protected guard={!isAuthenticated}>

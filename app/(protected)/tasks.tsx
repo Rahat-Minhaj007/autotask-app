@@ -86,8 +86,8 @@ const TasksScreen = () => {
                     return (
                         <Pressable
                             onPress={() => router.push({
-                                pathname: "/tasks/[taskId]",
-                                params: {taskId: item.id},
+                                pathname: "/task/[taskDetailsId]",
+                                params: {taskDetailsId: item.id},
                             })}
                             style={({pressed}) => ({
                                 opacity: pressed ? 0.85 : 1,
