@@ -19,10 +19,9 @@ const AuthGate = () => {
                         name="task/[taskDetailsId]"
                         options={{
                             headerShown: false,
+                            animation: "fade",
                         }}
-
                     />
-
                 </Stack.Protected>
                 <Stack.Protected guard={!isAuthenticated}>
                     <Stack.Screen name="login" options={{headerShown: false, animation: "none"}}/>

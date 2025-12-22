@@ -12,6 +12,7 @@ const ProtectedLayout = () => {
                          options={{
                              title: "Dashboard",
                              headerShown: true,
+                             animation: "fade",
                              headerTitleAlign: "left",
                              headerStyle: {
                                  height: 110,
@@ -33,6 +34,7 @@ const ProtectedLayout = () => {
                          options={{
                              title: "Tasks",
                              headerShown: true,
+                             animation: "fade",
                              headerTitleAlign: "left",
                              headerStyle: {
                                  height: 110,
@@ -54,6 +56,7 @@ const ProtectedLayout = () => {
                          options={{
                              title: "Profile",
                              headerShown: true,
+                             animation: "fade",
                              headerTitleAlign: "left",
                              headerStyle: {
                                  height: 110,

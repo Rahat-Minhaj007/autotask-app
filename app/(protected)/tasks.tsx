@@ -1,4 +1,4 @@
-import {FlatList, Image, Pressable, ScrollView, Text, View} from "react-native";
+import {ActivityIndicator, FlatList, Image, Pressable, ScrollView, Text, View} from "react-native";
 import {Calendar} from "react-native-calendars";
 import {useEffect, useRef, useState} from "react";
 import {useTasksQuery} from "@/services/api/tasksApi";
@@ -6,28 +6,42 @@ import {router, useFocusEffect} from "expo-router";
 import {TaskAssignedUser} from "@/interfaces/interfaces";
 import {badgeBg, badgesColor, badgeText} from "@/constants/globalConstant";
 import moment from "moment";
+import EvilIcons from "@expo/vector-icons/EvilIcons";
+import NoDataFound from "@/components/NoDataFound";
 
 const TasksScreen = () => {
     const today = new Date().toISOString().split("T")[0];
     const dateFormat = {dateString: today, day: 18, month: 12, timestamp: 1766016000000, year: 2025}
 
-    const [selected, setSelected] = useState(dateFormat);
+    const [selected, setSelected] = useState(today);
     const flatRef = useRef<FlatList<any>>(null);
 
     useFocusEffect(() => {
         flatRef.current?.scrollToOffset({offset: 0, animated: false});
     });
 
-    const {data, isLoading, error} = useTasksQuery({
-        from_date: selected?.dateString,
-        to_date: selected?.dateString,
-        per_page: 15,
-    });
+    const {data, isLoading, error} = useTasksQuery(
+        {
+            from_date: selected,
+            to_date: selected,
+            per_page: 15,
+        }
+    );
 
     useEffect(() => {
-        console.log("data==>", data?.data?.tasks);
+        console.log("data==>", data);
     }, [data]);
     console.log("selected date", selected);
+    if (isLoading) {
+        return (
+            <View className="flex-1 items-center justify-center bg-white">
+                <ActivityIndicator size="large" color="#0f0d23"/>
+                <Text className="mt-3 text-sm text-neutral-400">
+                    Loading tasks...
+                </Text>
+            </View>
+        );
+    }
     return (
         <View className="flex-1">
             <FlatList
@@ -37,47 +51,59 @@ const TasksScreen = () => {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{paddingBottom: 120}}
 
-                ListHeaderComponent={
-                    <Calendar
-                        onDayPress={setSelected}
-                        hideExtraDays={false}
-                        style={{
-                            borderRadius: 10,
-                            padding: 15,
-                            height: 380,
+                ListHeaderComponent={() => (
+                    <View>
+                        {/* Calendar */}
+                        <Calendar
+                            onDayPress={(day) => setSelected(day.dateString)}
+                            hideExtraDays={false}
+                            style={{
+                                borderRadius: 0,
+                                padding: 15,
+                                height: 380,
 
-                        }}
-                        markedDates={{
-                            [selected?.dateString]: {
-                                selected: true,
-                                selectedColor: "#0f0d23",
-                                selectedTextColor: "#ffffff",
-                            },
-                        }}
-                        theme={{
-                            calendarBackground: "#ffffff",
-                            backgroundColor: "#ffffff",
+                            }}
+                            markedDates={{
+                                [selected]: {
+                                    selected: true,
+                                    selectedColor: "#0f0d23",
+                                    selectedTextColor: "#ffffff",
+                                },
+                            }}
+                            theme={{
+                                calendarBackground: "#ffffff",
+                                backgroundColor: "#ffffff",
 
-                            // Day text colors
-                            dayTextColor: "#4b4a5a",
-                            textDisabledColor: "#9e9e9e",
-                            todayTextColor: "#0f0d23",
-
-
-                            monthTextColor: "#0f0d23",
-                            arrowColor: "#0f0d23",
-                            textMonthFontWeight: "500",
-                            textMonthFontSize: 20,
+                                // Day text colors
+                                dayTextColor: "#4b4a5a",
+                                textDisabledColor: "#9e9e9e",
+                                todayTextColor: "#0f0d23",
 
 
-                            textSectionTitleColor: "#0f0d23",
+                                monthTextColor: "#0f0d23",
+                                arrowColor: "#0f0d23",
+                                textMonthFontWeight: "500",
+                                textMonthFontSize: 20,
 
 
-                            selectedDayBackgroundColor: "#0f0d23",
-                            selectedDayTextColor: "#ffffff"
-                        }}
-                    />
-                }
+                                textSectionTitleColor: "#0f0d23",
+
+
+                                selectedDayBackgroundColor: "#0f0d23",
+                                selectedDayTextColor: "#ffffff"
+                            }}
+                        />
+
+                        {/* Selected day name */}
+                        <View className="px-4 mt-3">
+                            <Text className="text-base font-semibold text-dark-100">
+                                {moment(selected).format("dddd, MMMM D, YYYY")}
+                            </Text>
+                        </View>
+                    </View>
+                )}
+
+                ListEmptyComponent={<NoDataFound/>}
 
                 renderItem={({item}) => {
                     console.log("item status==>>", item.status);

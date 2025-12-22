@@ -88,8 +88,6 @@ const CustomTabNavigation: React.FC<BottomTabBarProps> = ({
 
             case "tasks":
                 return <EvilIcons name="calendar" size={26} color={color}/>;
-                ;
-
             case "profile":
                 return <FontAwesome6 name="circle-user" size={18} color={color}/>;
             default:
