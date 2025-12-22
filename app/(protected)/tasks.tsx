@@ -4,15 +4,16 @@ import {useEffect, useRef, useState} from "react";
 import {useTasksQuery} from "@/services/api/tasksApi";
 import {router, useFocusEffect} from "expo-router";
 import {TaskAssignedUser} from "@/interfaces/interfaces";
-import {badgeBg, badgesColor, badgeText} from "@/constants/globalConstant";
+import {badgeBg, badgeText} from "@/constants/globalConstant";
 import moment from "moment";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
 import NoDataFound from "@/components/NoDataFound";
+import {useSelector} from "react-redux";
+import {RootState} from "@/redux/store";
 
 const TasksScreen = () => {
     const today = new Date().toISOString().split("T")[0];
     const dateFormat = {dateString: today, day: 18, month: 12, timestamp: 1766016000000, year: 2025}
-
     const [selected, setSelected] = useState(today);
     const flatRef = useRef<FlatList<any>>(null);
 
