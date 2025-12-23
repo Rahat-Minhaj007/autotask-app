@@ -13,19 +13,22 @@ import {RootState} from "@/redux/store";
 
 const TasksScreen = () => {
     const today = new Date().toISOString().split("T")[0];
-    const dateFormat = {dateString: today, day: 18, month: 12, timestamp: 1766016000000, year: 2025}
     const [selected, setSelected] = useState(today);
     const flatRef = useRef<FlatList<any>>(null);
 
-    useFocusEffect(() => {
-        flatRef.current?.scrollToOffset({offset: 0, animated: false});
-    });
+    // useFocusEffect(() => {
+    //     flatRef.current?.scrollToOffset({offset: 0, animated: false});
+    // });
 
     const {data, isLoading, error} = useTasksQuery(
         {
             from_date: selected,
             to_date: selected,
             per_page: 15,
+        },
+        {
+            refetchOnFocus: false,
+            refetchOnMountOrArgChange: false,
         }
     );
 
@@ -33,7 +36,7 @@ const TasksScreen = () => {
         console.log("data==>", data);
     }, [data]);
     console.log("selected date", selected);
-    if (isLoading) {
+    if (isLoading && !data) {
         return (
             <View className="flex-1 items-center justify-center bg-white">
                 <ActivityIndicator size="large" color="#0f0d23"/>
@@ -46,8 +49,8 @@ const TasksScreen = () => {
     return (
         <View className="flex-1">
             <FlatList
-                ref={flatRef}
-                data={data ? data.data.tasks : []}
+                // ref={flatRef}
+                data={data?.data?.tasks ?? []}
                 keyExtractor={(item) => item.id.toString()}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{paddingBottom: 120}}
@@ -158,7 +161,7 @@ const TasksScreen = () => {
                                             {item?.assigned_users?.map((x: TaskAssignedUser, index: number) => (
                                                 <Image
                                                     key={x.id}
-                                                    source={{uri: x.avatar_url}}
+                                                    source={{uri: x?.avatar_url}}
                                                     style={{
                                                         width: 24,
                                                         height: 24,
@@ -177,7 +180,7 @@ const TasksScreen = () => {
                                             </Text>
                                             <Image
 
-                                                source={{uri: item.creator.avatar_url}}
+                                                source={{uri: item?.creator?.avatar_url}}
                                                 style={{
                                                     width: 24,
                                                     height: 24,
