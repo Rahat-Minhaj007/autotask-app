@@ -12,8 +12,9 @@ import Animated, {
 const AnimatedTouchableOpacity =
     Animated.createAnimatedComponent(TouchableOpacity);
 
-const PRIMARY_COLOR = "#0f0d23";
-const SECONDARY_COLOR = "#fff";
+// const PRIMARY_COLOR = "#0f0d23";
+const PRIMARY_COLOR = "#000000";
+const SECONDARY_COLOR = "#ffffff";
 
 const CustomTabNavigation: React.FC<BottomTabBarProps> = ({
                                                               state,
@@ -109,7 +110,7 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         paddingHorizontal: 12,
         paddingVertical: 15,
-        shadowColor: "#000",
+        shadowColor: "#000000",
         shadowOffset: {width: 0, height: 5},
         shadowOpacity: 0.3,
         shadowRadius: 5,
