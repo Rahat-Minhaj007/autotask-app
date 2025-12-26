@@ -8,6 +8,7 @@ import {images} from "@/constants/images";
 import ModalLayout from "@/components/ModalLayout";
 import {useState} from "react";
 import {Dropdown} from "react-native-element-dropdown";
+import Toast from "react-native-toast-message";
 
 const DashboardScreen = () => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -20,38 +21,47 @@ const DashboardScreen = () => {
         await dispatch(handleLogoutAction());
         router.replace("/login");
     }
-    const data = [
+    const selectFieldData = [
         {label: "Vehicle ID", value: "1"},
         {label: "Chassis Number", value: "2"},
 
     ];
+
+    const showToast = () => {
+        Toast.show({
+            type: 'success',
+            text1: 'Hello',
+            text2: 'This is some something 👋',
+            position:'top',
+        });
+    }
     return (
         <View className="flex-1 p-3">
             <ImageBackground source={images.startupBg} resizeMode="cover"
                              className=" bg-white p-6 overflow-hidden rounded-lg">
                 <View className="absolute inset-0 bg-black/50"/>
-               <View className="flex-row justify-between border-b-2 border-b-white">
-                   <View className="flex-row items-center gap-2">
-                       <Image
-                           source={{uri: userInfo?.avatar_url}}
-                           className="w-12 h-12 rounded-full border-2 border-white mb-5"
-                       />
+                <View className="flex-row justify-between border-b-2 border-b-white">
+                    <View className="flex-row items-center gap-2">
+                        <Image
+                            source={{uri: userInfo?.avatar_url}}
+                            className="w-12 h-12 rounded-full border-2 border-white mb-5"
+                        />
 
-                       <View className="mb-5">
-                           <Text className="capitalize  text-gray-100 font-semibold">
-                               {userInfo?.name} San
-                           </Text>
-                           <Text className="capitalize text-sm text-gray-300 font-semibold">
-                               {userInfo?.role}
-                           </Text>
-                       </View>
-                   </View>
-                   <Image
-                       source={images.logoWhite}
-                       className="w-11 h-11"
-                       resizeMode="contain"
-                   />
-               </View>
+                        <View className="mb-5">
+                            <Text className="capitalize  text-gray-100 font-semibold">
+                                {userInfo?.name} San
+                            </Text>
+                            <Text className="capitalize text-sm text-gray-300 font-semibold">
+                                {userInfo?.role}
+                            </Text>
+                        </View>
+                    </View>
+                    <Image
+                        source={images.logoWhite}
+                        className="w-11 h-11"
+                        resizeMode="contain"
+                    />
+                </View>
                 <View className="flex-row items-center gap-1 py-3 pl-2">
                     <Feather name="clock" size={13} color="white"/>
                     <Text className="capitalize text-sm text-gray-100  font-semibold">
@@ -67,7 +77,7 @@ const DashboardScreen = () => {
                         </Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity className="bg-white rounded-full px-4 py-4 w-1/2">
+                    <TouchableOpacity className="bg-white rounded-full px-4 py-4 w-1/2" onPress={showToast}>
                         <Text className="text-dark-200 text-center font-semibold">
                             History
                         </Text>
@@ -86,7 +96,7 @@ const DashboardScreen = () => {
                         to find vehicle details.</Text>
 
                     <Dropdown
-                        data={data}
+                        data={selectFieldData}
                         labelField="label"
                         valueField="value"
                         placeholder="Select option"
