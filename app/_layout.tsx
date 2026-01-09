@@ -6,6 +6,7 @@ import AppProvider from "@/components/AppProvider";
 import AuthGate from "@/components/AuthGate";
 import Toast from "react-native-toast-message";
 import {toastConfig} from "@/components/notifyToast";
+import {View} from "react-native";
 
 const RootLayout = () => {
     return (

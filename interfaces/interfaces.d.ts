@@ -70,3 +70,36 @@ export interface TaskListResponseData {
     tasks: Task[];
     pagination: Pagination;
 }
+
+export interface Vehicle {
+    vehicle_id: number;
+    make: string;
+    model: string;
+    chassis_model: string;
+    chassis_number: string;
+    veh_cc: string;
+    veh_year: string;
+    veh_color: string;
+    veh_buy_date: string; // ISO date string
+    veh_auc_ship_number: string;
+    veh_net_weight: string;
+    veh_m3: string;
+    veh_l: string;
+    veh_h: string;
+    veh_w: string;
+    veh_n1: string;
+    veh_n2: string;
+    veh_n3: string;
+    veh_n4: string;
+    veh_buy_price: number;
+    yard_date_in: string; // ISO date string
+    rikso_from_place_id: number;
+    rikso_to_place_id: number;
+    rikso_cost: number;
+    rikso_company: string;
+    images: string[];
+}
+
+export interface VehicleSearchResponse {
+    vehicles: Vehicle[];
+}
