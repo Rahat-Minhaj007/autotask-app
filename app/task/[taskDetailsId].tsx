@@ -6,7 +6,7 @@ import {SafeAreaView} from "react-native-safe-area-context";
 const TaskDetails = () => {
     const {taskDetailsId} = useLocalSearchParams<{ taskDetailsId: string }>();
     return (
-        <SafeAreaView className="">
+        <SafeAreaView className="flex-1">
             <View style={{
                 backgroundColor: "#f2f2f2",
                 borderBottomWidth: 1,
@@ -17,7 +17,7 @@ const TaskDetails = () => {
                         height: 53,
                         flexDirection: "row",
                         alignItems: "center",
-                        paddingHorizontal: 16,
+                        paddingHorizontal: 12,
                         justifyContent: "space-between",
                     }}
                 >

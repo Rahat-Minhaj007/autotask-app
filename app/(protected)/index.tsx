@@ -40,6 +40,7 @@ const DashboardScreen = () => {
     }
 
     const onSearch = async () => {
+        setModalOpen(false);
         try {
             const res = await searchVehicles({
                 search_type: searchType,
@@ -55,8 +56,6 @@ const DashboardScreen = () => {
                 });
                 return;
             }
-
-            setModalOpen(false);
             router.push({
                 pathname: "/vehicle/[vehicleDetailsId]",
                 params: {
@@ -64,13 +63,6 @@ const DashboardScreen = () => {
                     searchType,
                 },
             });
-            Toast.show({
-                type: 'success',
-                text1: 'Hello',
-                text2: 'This is some something 👋',
-                position: 'top',
-            });
-
 
         } catch (e) {
             Toast.show({

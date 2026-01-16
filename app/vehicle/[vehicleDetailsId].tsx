@@ -20,7 +20,7 @@ const VehicleDetails = () => {
 
     console.log("Vehicles Data", data?.data?.vehicles[0]);
     return (
-        <SafeAreaView className="">
+        <SafeAreaView className="flex-1">
             <View style={{
                 backgroundColor: "#f2f2f2",
                 borderBottomWidth: 1,
@@ -31,8 +31,8 @@ const VehicleDetails = () => {
                         height: 53,
                         flexDirection: "row",
                         alignItems: "center",
-                        paddingHorizontal: 16,
-                        justifyContent: "space-between",
+                        paddingHorizontal: 12,
+
                     }}
                 >
                     <Pressable onPress={() => router.back()}>
@@ -40,16 +40,16 @@ const VehicleDetails = () => {
                     </Pressable>
 
                     <Text style={{fontSize: 18, fontWeight: "600"}}>Vehicle Details</Text>
-
-                    <Pressable onPress={() => console.log("Edit")}>
-                        <Feather name="edit-2" size={20} color="#0f0d23"/>
-                    </Pressable>
                 </View>
             </View>
-            <Text>
-                Welcome to Vehicle Details
-                {searchType} == {vehicleDetailsId}
-            </Text>
+            <View className="flex-1 p-3">
+                <View className="px-3.5 py-5 bg-white rounded border border-slate-200">
+                   <View>
+                       <Text className="font-bold text-dark-200 text-sm">Basic Information</Text>
+                       
+                   </View>
+                </View>
+            </View>
         </SafeAreaView>
     );
 }
